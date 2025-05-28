@@ -1,4 +1,8 @@
 print ('hello world');
 print ('Hello GitHub');
 
+PRIMEIRO CONTATO COM O GITHUB
 
+1° SITUAÇÃO
+2° SITUAÇÃO 
+3° SITUAÇÃO
