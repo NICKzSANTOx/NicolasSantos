@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.ListaUsuarios {
+    width: 60%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.ListaUsuarios th, .ListaUsuarios td {
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.ListaUsuarios th {
+    background-color: #007BFF;
+    color: white;
+    text-transform: uppercase;
+}
+
+.ListaUsuarios tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.ListaUsuarios tr:hover {
+    background-color: #e0e0e0;
+}
