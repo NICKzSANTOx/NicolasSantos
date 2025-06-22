@@ -3,16 +3,12 @@
 include ('utils/conectadb.php');
 include ('utils/verificalogin.php');
 
-//trazer os funcionarios do banco de dados
-$sqlfuncionarios = "SELECT * FROM funcionarios";
-$enviaquery = mysqli_query($link, $sqlfuncionarios);
-
-
-//trazer os usuarios do banco de dados
-$sqlusuarios = "SELECT * FROM usuarios";
-$enviaquery2 = mysqli_query($link, $sqlusuarios);
-
-
+// Consulta com LEFT JOIN para trazer o login do usuário (se existir)
+$sql = "SELECT f.FUN_ID, f.FUN_NOME, f.FUN_CPF, f.FUN_FUNCAO, f.FUN_TEL, 
+               IF(f.FUN_ATIVO=1,'Ativo','Inativo') as STATUS, u.USU_LOGIN
+        FROM funcionarios f
+        LEFT JOIN usuarios u ON u.FK_FUN_ID = f.FUN_ID";
+$result = mysqli_query($link, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -22,45 +18,37 @@ $enviaquery2 = mysqli_query($link, $sqlusuarios);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/lista.css">
     <link rel="stylesheet" href="css/global.css">
-    <title>Lista</title>
+    <title>Lista de Funcionários</title>
 </head>
 <body>
-    <div class ="global">
-        <div class = "tabela">
-        <a href="backoffice.php"><img src='icons/arrow47.png' width=50 height=50></a>    
-        <table>
-            <tr>
-                <th>ID FUNCIONARIO</th>
-                <th>NOME</th>
-                <th>CPF</th>
-                <th>CARGO</th>
-                <th>CONTATO</th>
-                <th>STATUS</th>
-                <!-- Login usuario -->
-                <th>LOGIN</th>
-            </tr>
-            <?php   
-            while($tbl = mysqli_fetch_array($enviaquery)){ 
-                while($tbl2 = mysqli_fetch_array($enviaquery2)){
-            ?>
-            <tr>
-                <td> <?=$tbl[0]?> </td>
-                <td> <?=$tbl[1]?> </td>
-                <td> <?=$tbl[2]?> </td>
-                <td> <?=$tbl[3]?> </td>
-                <td> <?=$tbl[4]?> </td>
-                <td> <?=$tbl[5]?> </td>
-                <!-- Login usuario -->
-                <td> <?=$tbl2[1]?> </td>
-                                
-            </tr>
-                <?php
-                }
-            }
-                ?>
-                </table>
-        </div>    
-
+    <div class="global">
+        <a href="backoffice.php" class="btn-voltar" title="Voltar">
+            <img src="icons/arrow47.png" width="40" height="40" alt="Voltar">
+        </a>
+        <div class="tabela">
+            <table>
+                <tr>
+                    <th>ID FUNCIONÁRIO</th>
+                    <th>NOME</th>
+                    <th>CPF</th>
+                    <th>CARGO</th>
+                    <th>CONTATO</th>
+                    <th>STATUS</th>
+                    <th>LOGIN</th>
+                </tr>
+                <?php while($row = mysqli_fetch_assoc($result)) { ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['FUN_ID']) ?></td>
+                    <td><?= htmlspecialchars($row['FUN_NOME']) ?></td>
+                    <td><?= htmlspecialchars($row['FUN_CPF']) ?></td>
+                    <td><?= htmlspecialchars($row['FUN_FUNCAO']) ?></td>
+                    <td><?= htmlspecialchars($row['FUN_TEL']) ?></td>
+                    <td><?= htmlspecialchars($row['STATUS']) ?></td>
+                    <td><?= htmlspecialchars($row['USU_LOGIN'] ?? '-') ?></td>
+                </tr>
+                <?php } ?>
+            </table>
+        </div>
     </div>
 </body>
 </html>
