@@ -48,8 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <div class="global">
-        <img src="Icons/arrow47.png" width="40" height="40" alt="Voltar">
-        <a href="backoffice.php" class="btn-voltar" title="Voltar"></a>
+        <a href="backoffice.php" class="btn-voltar" title="Voltar"><img src="Icons/arrow47.png" width="40" height="40" alt="Voltar"></a>
         <div class="formulario">
             <form class="login" action="funcionario_cadastra.php" method="POST" autocomplete="off">
                 <h2>Cadastro de Funcionário</h2>

@@ -31,12 +31,11 @@ else
 <body>
     <div class="global">
         <div class="topo">
-            <h1>BEM VINDO    <?php echo strtoupper ($nomeusuario)?></h1>
-
+            <h1>BEM VINDO<?php echo strtoupper ($nomeusuario)?></h1>
             <div class="logout" method='post'>
                 <form action='logout.php'>
-                    <input type="submit" value='SAIR'>
-                </form>
+                    <a href='logout.php'><img src='Icons/arrow47.png' width='50px' height='50px'></a>
+            </form>
             </div>          
         </div>
 
