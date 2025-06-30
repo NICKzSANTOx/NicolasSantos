@@ -1,17 +1,13 @@
-
 <?php
-// CONEXÃO COM O BANCO
-include("utils/conectadb.php");
-include("utils/verificalogin.php");
 
-// TRAZ OS FUNCIONÁRIOS DO BANCO
-$sqlfun = "SELECT * FROM funcionarios INNER JOIN usuarios ON FK_FUN_ID = FUN_ID";
-$enviaquery = mysqli_query($link, $sqlfun);
+include('utils/conectadb.php');
+include('utils/verificalogin.php');
 
-// $sqlusu = "SELECT * FROM usuarios";
-// $enviaquery2 = mysqli_query($link, $sqlusu);
-
-
+$sql = "SELECT f.FUN_ID, f.FUN_NOME, f.FUN_CPF, f.FUN_FUNCAO, f.FUN_TEL, 
+               IF(f.FUN_ATIVO=1,'Ativo','Inativo') as STATUS, u.USU_LOGIN
+        FROM funcionarios f
+        LEFT JOIN usuarios u ON u.FK_FUN_ID = f.FUN_ID";
+$result = mysqli_query($link, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -19,56 +15,49 @@ $enviaquery = mysqli_query($link, $sqlfun);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/lista.css">
-
-    <title>LISTA FUNCIONÁRIOS</title>
+    <link rel="stylesheet" href="css/global.css">
+    <title>Lista de Funcionários</title>
 </head>
 <body>
-    <div class='global'>
-        <div class='tabela'>
-            <!-- BOTÃO VOLTAR -->
-            <a href="backoffice.php"><img src='icons/arrow47.png' width=50 height=50></a>
-
+    <div class="global">
+        <a href="backoffice.php" class="btn-voltar" title="Voltar">
+            <img src="icons/arrow47.png" width="40" height="40" alt="Voltar">
+        </a>
+        <div class="tabela">
             <table>
-                <tr> 
-                    <th>ID FUNCIONARIO</th>
-                    <th>NOME</th>
-                    <th>CPF</th>
-                    <th>CARGO</th>
-                    <th>CONTATO</th>
-                    <th>STATUS</th>
-                    <!-- DADOS DO USUARIO -->
-                    <th>LOGIN</th>
-                </tr>
-
-                <!-- COMEÇOU O PHP -->
-                <?php
-                    // while($tbl2 = mysqli_fetch_array($enviaquery2)){
-                        while ($tbl = mysqli_fetch_array($enviaquery)){
-                ?>
-                
-                <tr>
-                    <td><?=$tbl[0]?></td> <!--COLETA CÓDIGO DO FUN [0] -->
-                    <td><?=$tbl[1]?></td> <!--COLETA NOME DO FUN [1]-->
-                    <td><?=$tbl[2]?></td> <!--COLETA CPF DO FUN [2]-->
-                    <td><?=$tbl[3]?></td> <!--COLETA CONTATO DO FUN[3]-->
-                    <td><?=$tbl[4]?></td> <!--COLETA ATIVO DO FUN [4]-->
-                    <td><?=$tbl[5]?></td> <!--COLETA ATIVO DO FUN [5]-->
-                    <!-- $tbl2 COLETA SOMENTE O NOME DO USUARIO DO FUN -->
-                    <td><?=$tbl[7]?></td> <!--COLETA LOGIN DO USU [1]-->
-
-                    
-                </tr>
-                <?php
-                    }
-    
-                ?>
+                <thead>
+                    <tr>
+                        <th>ID FUNCIONÁRIO</th>
+                        <th>NOME</th>
+                        <th>CPF</th>
+                        <th>CARGO</th>
+                        <th>CONTATO</th>
+                        <th>STATUS</th>
+                        <th>LOGIN</th>
+                        <th>AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php while($row = mysqli_fetch_assoc($result)) { ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['FUN_ID']) ?></td>
+                        <td><?= htmlspecialchars($row['FUN_NOME']) ?></td>
+                        <td><?= htmlspecialchars($row['FUN_CPF']) ?></td>
+                        <td><?= htmlspecialchars($row['FUN_FUNCAO']) ?></td>
+                        <td><?= htmlspecialchars($row['FUN_TEL']) ?></td>
+                        <td><?= htmlspecialchars($row['STATUS']) ?></td>
+                        <td><?= htmlspecialchars($row['USU_LOGIN'] ?? '-') ?></td>
+                        <td>
+                            <a href="funcionario_edita.php?id=<?= urlencode($row['FUN_ID'])?>" class="btn-editar" title="Editar cadastro">
+                                <img src="Icons/editar.png" width="20" height="20" alt="Editar">
+                        </a>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
             </table>
         </div>
-
     </div>
-    
-    
 </body>
 </html>
