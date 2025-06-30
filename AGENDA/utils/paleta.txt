@@ -1,0 +1,10 @@
+| Elemento                    | Cor sugerida | Função Visual                               |
+| --------------------------- | ------------ | ------------------------------------------- |
+| **Fundo do formulário**     | `#EEC1D3`    | Cria uma base suave e feminina              |
+| **Títulos e rótulos**       | `#5A3E3E`    | Dá contraste e elegância                    |
+| **Campos de input (borda)** | `#B17871`    | Sutileza sem perder visibilidade            |
+| **Campos de input (fundo)** | `#FFF`       | Mantém legibilidade (branco é o ideal aqui) |
+| **Botão principal**         | `#D08A98`    | Atrai atenção de forma sofisticada          |
+| **Botão hover/foco**        | `#B17871`    | Mudança sutil ao interagir                  |
+| **Mensagens de erro**       | `#D08A98`    | Destaque suave para avisos importantes      |
+| **Links ou ajuda**          | `#5A3E3E`    | Firme e bem visível sem destoar             |
