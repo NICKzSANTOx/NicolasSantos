@@ -4,10 +4,10 @@ include("utils/verificalogin.php");
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
-    $sql = "SELECT f.*, u.USU_LOGIN, u.USU_SENHA 
-            FROM funcionarios f
-            LEFT JOIN usuarios u ON u.FK_FUN_ID = f.FUN_ID
-            WHERE f.FUN_ID = $id";
+    $sql = "SELECT *, USU_LOGIN, USU_SENHA 
+            FROM funcionarios 
+            LEFT JOIN usuarios u ON FK_FUN_ID = FUN_ID
+            WHERE FUN_ID = $id";
     $result = mysqli_query($link, $sql);
     $func = mysqli_fetch_assoc($result);
     if (!$func) {

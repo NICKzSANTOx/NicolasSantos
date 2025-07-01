@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                        VALUES ('$usulogin', '$ususenha', $retorno, $ativofun)";
             $enviaqueryusu = mysqli_query($link, $sqlusu);
         }
-        echo "<script>window.alert('FUNCIONÁRIO CADASTRADO COM SUCESSO!');</script>";
+        echo "<script>window.alert('USUARIO CADASTRADO COM SUCESSO!');</script>";
     }
 }
 ?>
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="txtsenha">Senha</label>
                 <input type="password" id="txtsenha" name="txtsenha" placeholder="Senha">
 
-                <input type="submit" value="Cadastrar Funcionário">
+                <input type="submit" value="Cadastrar Usuario" class="btn-cadastrar">
             </form>
         </div>
     </div>

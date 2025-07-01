@@ -3,10 +3,12 @@
 include('utils/conectadb.php');
 include('utils/verificalogin.php');
 
-$sql = "SELECT f.FUN_ID, f.FUN_NOME, f.FUN_CPF, f.FUN_FUNCAO, f.FUN_TEL, 
-               IF(f.FUN_ATIVO=1,'Ativo','Inativo') as STATUS, u.USU_LOGIN
-        FROM funcionarios f
-        LEFT JOIN usuarios u ON u.FK_FUN_ID = f.FUN_ID";
+$sql = "SELECT FUN_ID,FUN_NOME, FUN_CPF, FUN_FUNCAO, FUN_TEL, 
+               IF(FUN_ATIVO=1,'Ativo','Inativo') as STATUS, USU_LOGIN
+        FROM funcionarios
+        LEFT JOIN usuarios ON FK_FUN_ID = FUN_ID";
+
+
 $result = mysqli_query($link, $sql);
 ?>
 
