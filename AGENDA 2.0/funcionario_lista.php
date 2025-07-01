@@ -8,8 +8,7 @@ $sql = "SELECT FUN_ID,FUN_NOME, FUN_CPF, FUN_FUNCAO, FUN_TEL,
         FROM funcionarios
         LEFT JOIN usuarios ON FK_FUN_ID = FUN_ID";
 
-
-$result = mysqli_query($link, $sql);
+$result = mysqli_query($link, $sql);    
 ?>
 
 <!DOCTYPE html>

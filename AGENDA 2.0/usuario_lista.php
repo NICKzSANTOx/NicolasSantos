@@ -1,10 +1,13 @@
-<?=
-include("concetadb.php");
-session_start();
+<?php
 
 
-$query = "SELECT * FROM clientes";
-$result = mysqli_query($conn, $query);
+include("utils/conectadb.php");
+include("utils/verificalogin.php");
+
+$sqlcli = "SELECT * FROM clientes";
+$enviaquery = mysqli_query($link, $sqlcli);
+
+
 
 ?>
 
@@ -14,36 +17,52 @@ $result = mysqli_query($conn, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/global.css">
-    <title>Lista de Usuários</title>
+    <link rel="stylesheet" href="css/lista.css">
+
+    <title>LISTA CLIENTES</title>
 </head>
 <body>
-    <div class="global">
-        <div class="tabela">
+    <div class='global'>
+    <a href="backoffice.php" class="btn-voltar" title="Voltar"><img src="Icons/arrow47.png" width="40" height="40" alt="Voltar"></a>
+        <div class='tabela'>
+            <a href="backoffice.php"><img src='icons/arrow47.png' width=50 height=50></a>
+
             <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>Contato</th>
-                        <th>Login</th>
-                        <th>Data de Nascimento</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-                        <tr>
-                            <td><?= htmlspecialchars($row['CLI_ID']) ?></td>
-                            <td><?= htmlspecialchars($row['CLI_NOME']) ?></td>
-                            <td><?= htmlspecialchars($row['CLI_CPF']) ?></td>
-                            <td><?= htmlspecialchars($row['CLI_TEL']) ?></td>
-                            <td><?= htmlspecialchars($row['USU_LOGIN'] ?? '-') ?></td>
-                            <td><?= htmlspecialchars($row['CLI_DATANASC']) ?></td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
+                <tr> 
+                    <th>ID CLIENTE </th>
+                    <th>NOME</th>
+                    <th>CPF</th>
+                    <th>CONTATO</th>
+                    <th>STATUS</th>
+                    <th>DATA NASCIMENTO</th> 
+                    <th>ALTERAR</th>
+                </tr>
+                <?php
+                    
+                        while ($tbl = mysqli_fetch_array($enviaquery)){
+                ?>
+                
+                <tr>
+                    <td><?=$tbl[0]?></td> <!--COLETA CÓDIGO DO CLIENTE  [0] -->
+                    <td><?=$tbl[1]?></td> <!--COLETA NOME DO CLIENTE  [1]-->
+                    <td><?=$tbl[2]?></td> <!--COLETA CPF DO CLIENTE [2]-->
+                    <td><?=$tbl[3]?></td> <!--COLETA CONTATO DO FUN[3]-->
+                    <td><?=$tbl[5] == 1? 'ATIVO':'INATIVO'?></td> <!--COLETA ATIVO DO FUN [5]-->
+                    <td><?=$tbl[4]?></td> <!--COLETA DATA NASCIMENTO DO FUN [4]-->
+
+                    <td><a href='usuario_edita.php?id=<?= $tbl[0]?>'><button>ALTERAR</button></a></td>
+
+                    
+                </tr>
+                <?php
+                    }
+                
+                ?>
             </table>
         </div>
+
     </div>
+    
+    
 </body>
 </html>
