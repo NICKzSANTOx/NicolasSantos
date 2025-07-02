@@ -4,16 +4,47 @@
 include("utils/conectadb.php");
 include("utils/verificalogin.php");
 
+
+//APÓS ALTERAÇÕES FAZER O SAVE NO BANCO
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    
+    // COLETAR CAMPOS DOS INPUTS POR NAMES PARA VARIÁVEIS PHPs
+    $id = $_POST['id'];
+
+    $nomefun = $_POST['txtnome'];
+    // $cpffun = $_POST['txtcpf'];
+    $funcaofun = $_POST['txtfuncao'];
+    $contatofun = $_POST['txtcontato'];
+    $ativofun = $_POST['ativofun'];
+    
+    // COLETA PARA O USUARIO
+    $ususenha = $_POST['txtsenha'];
+    $usuativo = $_POST['ativousu'];
+
+    //INICIANDO QUERIES DE BANCO
+    $sqlfun = "UPDATE funcionarios SET FUN_NOME = '$nomefun', FUN_FUNCAO = '$funcaofun', FUN_TEL = '$contatofun', FUN_ATIVO = $ativofun WHERE FUN_ID = $id";
+    mysqli_query($link, $sqlfun);
+    
+    // //ATUALIZANDO OS DADOS DO USUARIO
+    $sqlusu = "UPDATE usuarios SET USU_SENHA = '$ususenha', USU_ATIVO = $usuativo WHERE FK_FUN_ID = $id";
+    mysqli_query ($link, $sqlusu);
+
+
+    echo "<script>window.alert('$nomefun ALTERADO');</script>";
+    echo "<script>window.location.href='funcionario_lista.php';</script>";
+    
+}
+
+
 // COLETANDO E PREENCHENDO OS DADOS NOS CAMPOS
 $id = $_GET['id']; //COLETANDO O ID VIA GET NA URL
 
-$sql = "SELECT * FROM funcionarios  
-        INNER JOIN usuarios ON FK_FUN_ID = FUN_ID WHERE FUN_ID = $id";
+$sql = "SELECT * FROM funcionarios INNER JOIN usuarios ON FK_FUN_ID = FUN_ID WHERE FUN_ID = '$id'";
 $enviaquery = mysqli_query($link, $sql);
 
 // PREENCHENDO OS CAMPOS COM WHILE
     while($tbl = mysqli_fetch_array($enviaquery)){
-        
+        $id = $tbl[0];
         $nomefun = $tbl[1];
         $cpffun = $tbl[2];
         $funcaofun = $tbl[3];
@@ -27,26 +58,7 @@ $enviaquery = mysqli_query($link, $sql);
         
     }
 
-//APÓS ALTERAÇÕES FAZER O SAVE NO BANCO
-if($_SERVER['REQUEST_METHOD']=='POST'){
     
-    // COLETAR CAMPOS DOS INPUTS POR NAMES PARA VARIÁVEIS PHPs
-    $id = $_POST['txtid'];
-
-    $nomefun = $_POST['txtnome'];
-    $cpffun = $_POST['txtcpf'];
-    $funcaofun = $_POST['txtfuncao'];
-    $contatofun = $_POST['txtcontato'];
-    $ativofun = $_POST['ativo'];
-    
-    // COLETA PARA O USUARIO
-    $usulogin = $_POST['txtusuario'];
-    $ususenha = $_POST['txtsenha'];
-    
-
-    // INICIANDO QUERIES DE BANCO
-
-}
 ?>
 
 <!DOCTYPE html>
@@ -67,10 +79,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
  
             <a href="backoffice.php"><img src='icons/arrow47.png' width=50 height=50></a>
             
-            <form class='login' action="funcionario_cadastra.php" method="post">
+            <form class='login' action="funcionario_altera.php" method="post">
                 
                 <!-- PARA GRAVARMOS REALMENTE O ID DO FUNCIONÁRIO -->
-                <input type='hidden' name='txtid' value='<?= $id?>'>
+                <input type='hidden' name='id' value='<?= $id?>'>
 
                 <label>NOME DO FUNCIONÁRIO</label>
                 <input type='text' name='txtnome' value = "<?= $nomefun ?>" required>

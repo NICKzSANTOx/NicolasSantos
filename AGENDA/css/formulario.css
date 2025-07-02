@@ -5,16 +5,24 @@ body{
 .global{
     display: flex;
     flex-flow: column;
-    background-color: #EEC1D3	;
+    /* background-color: #5d1c34	; */
     width: 300px;
     height: auto;
     border-radius: 20px;
     justify-self: center;
 }
 
+.global h1{
+    margin-top: 50px;
+    color: #cdbcab;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
 .formulario{
     height: auto;
-    background-color: #EEC1D3;
+    margin-top: 20px;
+    background-color: #5d1c34;
     border-radius: 20px;
     border: #B17871 solid 2px;
 }
@@ -28,16 +36,17 @@ body{
 }
 
 .login label{
-    color: #5A3E3E	;
+    color: #cdbcab	;
     font-size: 20px;
     font-family: 'Courier New', Courier, monospace;
 }
 
-.login input[type='text'], input[type='password'], input[type='number']{
+.login input[type='text'], input[type='password'], input[type='number'], input[type='date']{
     height: 40px;
     border-radius: 10px;
     border: solid 2px #B17871	;
     background-color: #FFF	;
+    color: rgb(101, 101, 101);
 }
 
 .login input[type='submit']{

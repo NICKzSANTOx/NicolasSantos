@@ -59,6 +59,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 </head>
 <body>
     <div class="global">
+        <h1>ACESSAR CONTA DO FUNCIONÁRIO</h1>
         <div class="formulario">
             <form class='login' action="login.php" method="post">
                
